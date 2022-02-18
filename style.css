@@ -1,0 +1,232 @@
+
+form {
+    visibility: hidden;
+}
+
+table {
+    visibility: hidden;
+}
+td {
+    vertical-align: top;
+}
+table,th,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+th{
+     background-color: darkgray;
+ }
+
+ .flushedColor {
+     background-color: mediumspringgreen;
+ }
+
+ .unsavedColor {
+     background-color: orangered;
+ }
+
+ .warningColor {
+     background-color: orange;
+ }
+
+ .animating {
+    background-color: white;
+    animation-name: blink;
+    animation-duration: 3s;
+    animation-delay: 1s;
+ }
+
+ @keyframes blink {
+    from {background-color:white;}
+    to {background-color: blueviolet;}
+  }
+
+ #flushing {
+    position: relative;
+    top: 30px;
+    visibility: hidden;
+ }
+
+ div.ans {
+    position: absolute;
+    top: 30px;
+    left: 700px;
+    width: 500px;
+    visibility: hidden;
+ }
+
+ div.redo {
+    position: absolute;
+    top: 30px;
+    left: 700px;
+    width: 500px;
+    visibility: hidden;  
+    
+ }
+
+ div.undo {
+    position: absolute;
+    top: 30px;
+    left: 700px;
+    width: 900px;
+    visibility: hidden;
+ }
+
+ #button1 {
+    position: relative;
+    left: 380px;
+    bottom: 170px;
+    visibility: hidden;
+ }
+
+ #button2 {
+    position: relative;
+    left: 360px;
+    top: 180px;
+    visibility: hidden;
+ }
+
+ .btn-group {
+    background-color: brown; 
+    border: 5px solid black;
+    color: white;  
+    padding: 10px 20px;
+    cursor: pointer;  
+    width: 100px;
+    display: block;
+ }
+
+ #Checktt {
+     position: relative;
+     left: 100px;
+     top: 130px;
+     visibility: hidden;
+ }
+
+ #Solvett {
+    position: relative;
+    right: 20px;
+    top: 170px;
+    visibility: hidden;
+ }
+
+ #tt1 {
+     position: relative;
+     top: 50px;
+ }
+
+ #demo5 {
+    position: relative;
+    bottom: 10px;
+    width: 330px;
+ }
+
+#demo6 {
+    visibility: hidden;
+}
+
+#demo7 {
+    position: relative;
+    visibility: hidden;
+    top: 110px;
+}
+
+#dpt {
+    position: relative;
+    top: 80px;
+}
+
+#dpt1 {
+    position: relative;
+    top: 120px;
+}
+
+#Checkdpt {
+    position: relative;
+    top: 150px;
+    left: 330px;
+    visibility: hidden;
+}
+
+#Solvedpt {
+    position: relative;
+    left: 200px;
+    top: 190px;
+    visibility: hidden;
+}
+
+#firstdiv {
+    width: 100px;
+}
+
+#table2 {
+    position: relative;
+    top: 20px;
+    width: 600px;
+    visibility: hidden;
+}
+
+#demo10 {
+    visibility: hidden;
+}
+
+#demo11 {
+    visibility: hidden;
+}
+
+#solveRedo {
+    visibility: hidden;
+}
+
+#button3 {
+    position: relative;
+    bottom: 20px;
+    left: 500px;
+    visibility: hidden;
+}
+
+#checkbtn {
+    visibility: hidden;
+    position: relative;
+    top: 30px;
+}
+
+#undosolve {
+    visibility: hidden;
+    position: relative;
+    right: 135px;
+    top: 80px;
+}
+
+#undoTable {
+    position: relative;
+    top: 100px;
+}
+
+#demo13 {
+    position: relative;
+    top: 100px;
+}
+
+#showChart {
+    position: relative;
+    top: 120px;
+    visibility: hidden;
+}
+
+#chart {
+    position: relative;
+    top: 200px;
+    right: 700px;
+    visibility: hidden;
+    background-color: peachpuff;
+}
+
+#demo15 {
+    width: 500px;
+}
+
+h1 {
+    
+}

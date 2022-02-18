@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aries learning platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="clearInp()">
+    
+    <h1>Welcome for some Aries practice!</h1>  
+
+    
+    <div id="phase1" class = "ans"> 
+        <h2 style="font-size:30px;">Analysis phase</h2>
+        <p>The phase of analysis begins from the latest checkpoint and runs 
+        up to system's crash point. During its course, it produces the Transaction 
+        Table by saving each transaction id, its current status and its Last LSN.
+        It also shapes the Dirty Page Table, in which every page is stored, as well
+        as the LSN in which it first appeared(RecLSN). Let's try to fill these tables!
+        </p>
+        Analysis begins at: <input id="start" size="5">
+        <button type="button" id="anStart" onclick="checkStart()">OK</button>
+        <button type="button" id="Checktt" onclick="checkTT()">Check TT correctness</button>
+        <button type="button" id="Solvett" onclick="showTT()">TT Solution</button>
+        <p style="font-size:25px;" id="demo6"><b>Transaction Table</b></p>
+        <table id="tt">
+            <tr> 
+                <th>TRANS_ID</th>
+                <th>LAST_LSN</th>
+                <th>STATUS</th>
+            </tr>
+        </table>
+        <p id="demo14"></p>
+        <table id="tt1">
+            <tr> 
+                <th>TRANS_ID</th>
+                <th>LAST_LSN</th>
+                <th>STATUS</th>
+            </tr>
+        </table>
+        <p style="font-size:25px;" id="demo7"><b>Dirty Page Table</b></p>
+
+        <button type="button" id="Checkdpt" >Check DPT correctness</button>
+        <button type="button" id="Solvedpt" onclick="showDPT()">DPT Solution</button>
+        
+        <table id="dpt">
+            <tr> 
+                <th>PAGE_ID</th>
+                <th>REC_LSN</th>
+            </tr>
+        </table>
+        <button id="button2" type="button" onclick="redo()">REDO</button>
+        <table id="dpt1">
+            <tr> 
+                <th>PAGE_ID</th>
+                <th>REC_LSN</th>
+            </tr>
+        </table>
+        
+    </div>
+
+    
+
+    <div id="phase2" class="redo">
+        <h3 style="font-size:30px;">Redo phase</h3>
+        <p>The Redo phase actually means repeating the history.
+            In order to do that, we repeat(reapply) all the changes made
+            to pages. Each record should be repeated, unless: <br>
+            <b>1)The affected page is not in the DPT</b> <br>
+            <b>2)The affected page is in the DPT, but RecLSN > LSN </b><br>
+            <b>3)PageLSN (in the disk) >= LSN . </b> <br>
+            Specifically, the relative 
+            page is retrieved from the disk and is updated by a 
+            transaction , as suggested by the original log.
+            Remember: The Redo phase begins from the oldest RecLSN
+            of the first page that was changed, which is the oldest RecLSN
+            in the DPT.
+        </p>
+        Redo begins at: <input id="redostart" size="5">
+        <button type="button" id="redoBut" onclick="checkRedoStart()">OK</button>
+        <p style="font-size:20px;" id="demo10"><b>Which of the following rows will be repeated? Click on them!</b></p> 
+        <p id="demo9"></p>  
+        <button type="button" id="solveRedo" onclick="showRedoTable()">Solution</button>
+        <button id="button3" type="button" class="btn-group" onclick="undo()" >UNDO</button>
+        <p style="font-size:20px;" id="demo11"><b>The following rows will be redone:</b></p>
+        <table id="table2"> </table> 
+    </div>
+
+    <div id="phase3" class="undo">
+        <h4 style="font-size:30px;">Undo phase</h4>
+        <p id="demo15">In contrast to the previous 2 phases, the Undo phase begins from the crash point and crosses 
+            the log in the reverse direction. The actual purpose of this phase is undoing all the 
+            actions performed by their respective transactions that were active at the time of the crash.
+            These transactions are defined in the transaction table.
+            All the updates should be undone, based on their UndoNextLSN.
+         </p>
+         Undo goes up to: <input id="undofinish" size="5">
+         <button type="button" id="checkfinish" onclick="checkFinish()">OK</button>
+         <p id="demo12"></p>
+         <table id = "testUndoTable"> 
+            <tr> 
+                <th>LSN</th>
+                <th>PREV_LSN</th>
+                <th>TRANS_ID</th>
+                <th>TYPE</th>
+                <th>PAGE_ID</th>
+                <th>UNDO_NEXT_LSN</th>
+            </tr>
+        </table>
+        <button type="button" id="checkbtn">Check Correctness</button>
+        <button type="button" id="undosolve" onclick="showUndo()">UndoTable Solution</button>
+         <table id = "undoTable"> 
+            <tr> 
+                <th>LSN</th>
+                <th>PREV_LSN</th>
+                <th>TRANS_ID</th>
+                <th>TYPE</th>
+                <th>PAGE_ID</th>
+                <th>UNDO_NEXT_LSN</th>
+            </tr>
+        </table>
+        <button type="button" id="showChart" onclick="showChart()">Show Chart</button>
+        <p id="demo13"></p>
+        <canvas id="chart" style="border:1px solid #d3d3d3;">
+        </canvas>
+    </div>
+    
+    Give number of transactions (1-10) : <input id="numb">
+
+    <button type="button" onclick="numTest()">Submit</button>
+
+    <p id="demo"></p>
+
+    <form id ="id1">
+        Running: <input type="number" id="running"  ><br>
+        Aborting: <input type="number" id="aborting"  ><br>
+        Committed: <input type="number" id="committed"  ><br><br>
+        <button id="gnrt" type="button" onclick="scheduleGenerate()">Generate Schedule</button>
+    </form> 
+    <p id="demo1"></p>
+
+    <table id = "tbl"> 
+        <tr> 
+            <th>LSN</th>
+            <th>PREV_LSN</th>
+            <th>TRANS_ID</th>
+            <th>TYPE</th>
+            <th>PAGE_ID</th>
+            <th>UNDO_NEXT_LSN</th>
+        </tr>
+    </table>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+    <p id="demo4"></p><br>
+    <p id="demo5"></p>
+    <p id="demo17"></p>
+    
+    <div id="flushing">
+        Flushed-LSN: <input type="number" id="lsn" size="5">
+
+        <button type="button" id="colorButton" onclick="colorTable()">Submit</button>
+        <p id="demo8"></p>
+    </div>
+    <br><br>
+
+    <button id="button1" type="button" onclick="analysis()">ANALYSIS</button>
+     
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
